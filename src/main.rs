@@ -41,8 +41,8 @@ fn assemble_line(line: &str) -> u32 {
 }
 
 fn reg(r: &str) -> u32 {
-    if r.starts_with('x') {
-        r[1..].parse::<u32>().unwrap()
+    if let Some(num) = r.strip_prefix('x') {
+        num.parse::<u32>().unwrap()
     } else {
         panic!("invalid register");
     }
