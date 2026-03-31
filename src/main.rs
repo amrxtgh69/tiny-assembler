@@ -1,3 +1,54 @@
+use std::fs;
+use core::panic;
+
 fn main() {
-    println!("Hello, world!");
+    let input = fs::read_to_string("input.s").expect("failed to read file.");
+
+    for line in input.lines() {
+        if line.trim().is_empty() {
+            continue;
+        }
+        let instr = assemble_line(line);
+        println!("{:010x}", instr); 
+    }
 }
+
+fn assemble_line(line: &str) -> u32 {
+    let clean = line.replace(",", "");
+
+    let tokens: Vec<&str> = clean.split_whitespace().collect();
+
+    let op = tokens[0];
+    match op {
+        "add" => encode_r(
+            0b0000000,
+            reg(tokens[3]),
+            reg(tokens[2]),
+            0b000,
+            reg(tokens[1]),
+            0b0110011,
+        ),
+        "sub" => encode_r(
+            0b0100000,
+            reg(tokens[3]),
+            reg(tokens[2]),
+            0b000,
+            reg(tokens[1]),
+            0b0110011,
+        ),
+        _ => panic!("unknown instruction"),
+    }
+}
+
+fn reg(r: &str) -> u32 {
+    if r.starts_with('x') {
+        r[1..].parse::<u32>().unwrap()
+    } else {
+        panic!("invalid register");
+    }
+}
+
+fn encode_r() {
+    unimplemented();
+}
+
