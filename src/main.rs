@@ -48,7 +48,19 @@ fn reg(r: &str) -> u32 {
     }
 }
 
-fn encode_r() {
-    unimplemented();
+fn encode_r(
+    func7: u32,
+    rs2: u32,
+    rs1: u32,
+    func3: u32,
+    rd: u32,
+    opcode: u32,
+    ) -> u32 {
+    (func7 << 25)
+        | (rs2 << 20)
+        | (rs1 << 15)
+        | (func3 << 12)
+        | (rd << 7)
+        | opcode
 }
 
