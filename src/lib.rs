@@ -1,5 +1,9 @@
+/////////////////////////////
+// ~ amrxtgh (tiny assembler)
+/////////////////////////////
+
 pub fn assemble_line(line: &str) -> u32 {
-    let clean = line.replace(",", "");
+    let clean = line.replace(",", " ");
 
     let tokens: Vec<&str> = clean.split_whitespace().collect();
     if tokens.len() != 4 {
